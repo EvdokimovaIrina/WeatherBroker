@@ -14,17 +14,17 @@
 	   		">
 
 
-    <!-- Объявление Hibernate SessionFactory для получения session -->
+    <!-- Объявление Hibernate SessionFactory для получения session-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
           p:configLocation="/WEB-INF/"
-          p:packagesToScan="catalogContacts"/>
+          p:packagesToScan="weatherBroker"/>
 
 
     <!-- Объявление transaction manager-->
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
           p:sessionFactory-ref="sessionFactory" />
 
-    <!-- Включить аннотации управления транзакциями -->
+    <!-- Включить аннотации управления транзакциями-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

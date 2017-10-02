@@ -6,9 +6,11 @@
 </head>
 <body>
 
-<form action="/weather" method="POST">
-    <h3>Укажите город:</h3>
-    <p> <input required type="text" name="city"></p>
+<h3>Укажите город:</h3>
+<p> <input required type="text" name="city"></p>
+
+<form action="/rest/weather" method="POST">
+
     <input type="submit" value="Узнать погоду" />
 </form>
 
