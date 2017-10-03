@@ -7,10 +7,10 @@
 <body>
 
 <h3>Укажите город:</h3>
-<p> <input required type="text" name="city"></p>
 
-<form action="/rest/weather" method="POST">
 
+<form action="/rest/weather" method="GET">
+    <p> <input required type="text" name="city"></p>
     <input type="submit" value="Узнать погоду" />
 </form>
 

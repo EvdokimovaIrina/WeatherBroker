@@ -12,6 +12,8 @@
 
     </bean>
 
+    <bean id="factoryRestResult" class="weatherBroker.controller.eventResult.FactoryRestResult">
 
+    </bean>
 
 </beans>

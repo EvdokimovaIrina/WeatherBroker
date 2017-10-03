@@ -16,7 +16,7 @@
 
     <!-- Объявление Hibernate SessionFactory для получения session-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
-          p:configLocation="/WEB-INF/"
+          p:configLocation="/WEB-INF/hibernate.cfg.xml"
           p:packagesToScan="weatherBroker"/>
 
 
