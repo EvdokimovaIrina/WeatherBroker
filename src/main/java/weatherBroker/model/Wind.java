@@ -1,22 +1,15 @@
 package weatherBroker.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "weather")
-@JsonRootName(value = "wind")
+import com.fasterxml.jackson.annotation.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Weather {
+public class Wind {
 
-    private String id;
     private String chill;
     private String direction;
     private String speed;
 
-    public Weather() {
+    public Wind() {
     }
 
     public String getChill() {
@@ -42,15 +35,4 @@ public class Weather {
     public void setSpeed(String speed) {
         this.speed = speed;
     }
-
-    @Id
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-
 }

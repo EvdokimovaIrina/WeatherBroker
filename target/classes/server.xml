@@ -148,8 +148,8 @@
       <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
 
-        <Context docBase="../../WeatherBroker"
-                 path="/WeatherBroker" reloadable="true">
+        <Context docBase="../../weatherdata"
+                 path="/weatherdata" reloadable="true">
 
           <Resource name="jdbc/weatherdata" auth="Container"
                     type="javax.sql.DataSource" maxActive="100"
