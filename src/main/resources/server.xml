@@ -158,6 +158,28 @@
                     password="999999999"
                     driverClassName="org.postgresql.Driver"
                     url="jdbc:postgresql://localhost/weatherdata"/>
+
+          <Resource name="jms/ConnectionFactory" auth="Container"
+                    type="org.apache.activemq.ActiveMQConnectionFactory"
+                    description="JMS Connection Factory"
+                    factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+                    brokerURL="vm://localhost"
+                    brokerName="LocalActiveMQBroker"
+                    userName="admin" password="admin"
+                    useEmbeddedBroker="false"
+                    clientID="TomcatClientID" />
+
+          <Resource name="jms/myQueue" auth="Container"
+                    type="org.apache.activemq.command.ActiveMQQueue"
+                    description="JMS Queue"
+                    factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+                    physicalName="TEST.FOO" />
+
+          <Resource name="jms/myTopic" auth="Container"
+                    type="org.apache.activemq.command.ActiveMQTopic"
+                    description="JMS Topic"
+                    factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+                    physicalName="TEST.BAR"/>
         </Context>
 
         <!-- SingleSignOn valve, share authentication between web applications

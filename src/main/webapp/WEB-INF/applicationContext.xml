@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:jms="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	   		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 	   		http://www.springframework.org/schema/context
@@ -24,7 +25,7 @@
 
     <import resource="spring-data.xml" />
 
-
+    <import resource="JmsContext.xml" />
 
 
 </beans>

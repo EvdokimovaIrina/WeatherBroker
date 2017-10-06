@@ -2,8 +2,10 @@ package weatherBroker.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Condition {
+public class Condition implements Serializable {
     private String code;
     private String date;
     private String temp;

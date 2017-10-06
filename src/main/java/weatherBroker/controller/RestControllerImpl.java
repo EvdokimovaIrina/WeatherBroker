@@ -2,7 +2,9 @@ package weatherBroker.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.http.HttpEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -14,11 +16,13 @@ import org.springframework.web.client.RestTemplate;
 import weatherBroker.controller.eventResult.EventType;
 import weatherBroker.controller.eventResult.FactoryRestResult;
 import weatherBroker.controller.eventResult.RestResult;
+import weatherBroker.jms.JmsMessageSender;
 import weatherBroker.model.QueryWeather;
 import weatherBroker.model.Weather;
 import weatherBroker.service.WeatherService;
 
 import javax.annotation.Resource;
+import javax.jms.Queue;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -29,10 +33,11 @@ import java.util.Map;
 @RestController("restController")
 @RequestMapping(value = "/rest")
 public class RestControllerImpl {
-
-    @Resource(name = "weatherService")
+    @Autowired()
+    private JmsMessageSender jmsMessageSender;
+    @Autowired()
     private WeatherService weatherService;
-    @Resource(name = "factoryRestResult")
+    @Autowired()
     private FactoryRestResult factoryRestResult;
 
     @RequestMapping(value = "/weather", method = RequestMethod.GET)
@@ -56,6 +61,10 @@ public class RestControllerImpl {
             return new RestResult(EventType.ERROR, e);
         }
 
+        jmsMessageSender.simpleSend();
+        /*Queue queue = new ActiveMQQueue("AnotherDest");
+        jmsMessageSender.sendMessage(queue, weather);*/
+        jmsMessageSender.sendMessage(weather);
         return new RestResult(EventType.WEATHER, weather);
     }
 }

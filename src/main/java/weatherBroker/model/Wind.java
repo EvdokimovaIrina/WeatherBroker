@@ -2,8 +2,11 @@ package weatherBroker.model;
 
 
 import com.fasterxml.jackson.annotation.*;
+
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Wind {
+public class Wind implements Serializable {
 
     private String chill;
     private String direction;

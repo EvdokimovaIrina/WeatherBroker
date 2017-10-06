@@ -2,8 +2,10 @@ package weatherBroker.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Channel {
+public class Channel implements Serializable {
     private Units units;
     private Wind wind;
     private Atmosphere atmosphere;

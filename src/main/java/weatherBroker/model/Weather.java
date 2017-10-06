@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "weather")
 @JsonRootName(value = "wind")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Weather {
+public class Weather implements Serializable {
 
     private String id;
     private String chill;
