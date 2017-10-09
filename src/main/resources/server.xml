@@ -159,7 +159,7 @@
                     driverClassName="org.postgresql.Driver"
                     url="jdbc:postgresql://localhost/weatherdata"/>
 
-          <Resource name="jms/ConnectionFactory" auth="Container"
+          <!--<Resource name="jms/ConnectionFactory" auth="Container"
                     type="org.apache.activemq.ActiveMQConnectionFactory"
                     description="JMS Connection Factory"
                     factory="org.apache.activemq.jndi.JNDIReferenceFactory"
@@ -167,9 +167,9 @@
                     brokerName="LocalActiveMQBroker"
                     userName="admin" password="admin"
                     useEmbeddedBroker="false"
-                    clientID="TomcatClientID" />
+                    clientID="TomcatClientID" />-->
 
-          <Resource name="jms/myQueue" auth="Container"
+          <!--<Resource name="jms/myQueue" auth="Container"
                     type="org.apache.activemq.command.ActiveMQQueue"
                     description="JMS Queue"
                     factory="org.apache.activemq.jndi.JNDIReferenceFactory"
@@ -180,6 +180,23 @@
                     description="JMS Topic"
                     factory="org.apache.activemq.jndi.JNDIReferenceFactory"
                     physicalName="TEST.BAR"/>
+-->
+
+
+          <Resource auth="Container"
+                    name="jms/ConnectionFactory"
+                    type="org.apache.activemq.ActiveMQConnectionFactory"
+                    description="JMS Connection Factory"
+                    factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+                    brokerURL="tcp://localhost:61616?jms.useAsyncSend=true"
+                    brokerName="MyActiveMQBroker"/>
+
+          <Resource auth="Container"
+                    name="jms/destinationQueue"
+                    type="org.apache.activemq.command.ActiveMQQueue"
+                    description="JMS queue"
+                    factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+                    physicalName="FOO.QUEUE"/>
         </Context>
 
         <!-- SingleSignOn valve, share authentication between web applications

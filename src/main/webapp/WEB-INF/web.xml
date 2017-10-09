@@ -7,12 +7,13 @@
 
     <listener>
         <listener-class>
-            org.springframework.web.context.ContextLoaderListener</listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
     </listener>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value> /WEB-INF/applicationContext.xml</param-value>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
 
     <servlet>
@@ -37,7 +38,23 @@
         <res-auth>Container</res-auth>
     </resource-ref>
 
-    <message-destination-ref>
+    <resource-ref>
+        <description>ConnectionFactory</description>
+        <res-ref-name>jms/ConnectionFactory</res-ref-name>
+        <res-type>javax.jms.ConnectionFactory</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <resource-ref>
+        <description>jms Queue</description>
+        <res-ref-name>jms/destinationQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+
+
+   <!-- <message-destination-ref>
         <message-destination-ref-name>jms/myQueue</message-destination-ref-name>
         <message-destination-type>javax.jms.Queue</message-destination-type>
         <message-destination-usage>ConsumesProduces</message-destination-usage>
@@ -45,7 +62,7 @@
     </message-destination-ref>
     <message-destination>
         <message-destination-name>MyQueue</message-destination-name>
-    </message-destination>
+    </message-destination>-->
 
 
 </web-app>
