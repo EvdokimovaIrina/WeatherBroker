@@ -7,58 +7,11 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
 
 
-
-   <!-- <jee:jndi-lookup id="connectionFactory"
-                     jndi-name="jms/ConnectionFactory"
-                     expected-type="org.springframework.jndi.JndiObjectFactoryBean" />-->
-
     <jee:jndi-lookup id="jmsConnectionFactory" jndi-name="jms/ConnectionFactory"/>
 
-    <!--<jee:jndi-lookup id="destinationQueue"
-                     jndi-name="jms/destinationQueue"
-                     expected-type="javax.jms.Queue" />-->
 
     <jee:jndi-lookup id="destinationQueue"
                      jndi-name="jms/destinationQueue"/>
-
-<!--    <bean id="jmsConnectionFactory"
-          class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="java:comp/env/jms/myCF"/>
-        <property name="lookupOnStartup" value="false"/>
-        <property name="cache" value="true"/>
-        <property name="proxyInterface" value="javax.jms.ConnectionFactory"/>
-    </bean>-->
-
-    <!--<bean id="amqConnectionFactory" class="org.springframework.jndi.">-->
-        <!--<constructor-arg index="0" value="tcp://localhost:61616?jms.useAsyncSend=true"/>-->
-    <!--</bean>-->
-
-    <!--&lt;!&ndash; ConnectionFactory Definition &ndash;&gt;-->
-    <!--<bean id="connectionFactory"-->
-          <!--class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<constructor-arg ref="java:comp/env/"/>-->
-
-    <!--</bean>-->
-
-
-
-    <!--<bean id="destinationQueue" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg index="0" value="IN_QUEUE"/>
-    </bean>-->
-
-    <!--<bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
-        <property name="environment">
-            <map>
-                <entry key="java.naming.factory.initial" value="connectionFactory" />
-                <entry key="java.naming.provider.url" value="tcp://localhost:61616?jms.useAsyncSend=true" />
-            </map>
-        </property>
-    </bean>
-
-    <bean id="topic" class="org.springframework.jndi.JndiObjectFactoryBean">
-  &lt;!&ndash;      <property name="jndiName" value="TOPIC_NAME"/>&ndash;&gt;
-        <property name="jndiTemplate" ref="jndiTemplate"/>
-    </bean>-->
 
     <bean id="myMessageConverter" class="weatherBroker.jms.MessageConverterImpl"/>
 

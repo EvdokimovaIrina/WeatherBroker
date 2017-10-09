@@ -34,7 +34,7 @@ public class JmsMessageSender {
 
     }
 
-    public void sendMessage(final QueryWeather queryWeather) {
+    public void sendMessage(final QueryWeather queryWeather) throws JMSException{
         /*jmsTemplate.send(new MessageCreator() {
             public Message createMessage(Session session) throws JMSException {
                 return session.createObjectMessage(queryWeather);
