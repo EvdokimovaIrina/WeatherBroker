@@ -173,6 +173,13 @@
                     description="JMS queue"
                     factory="org.apache.activemq.jndi.JNDIReferenceFactory"
                     physicalName="IN_QUEUE"/>
+
+          <Resource auth="Container"
+                    name="jms/destinationTopic"
+                    type="org.apache.activemq.command.ActiveMQTopic"
+                    description="JMS topic"
+                    factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+                    physicalName="IN_QUEUE"/>
         </Context>
 
         <!-- SingleSignOn valve, share authentication between web applications

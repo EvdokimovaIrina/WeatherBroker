@@ -13,14 +13,14 @@ import java.util.Map;
 public class JmsMessageSender {
 
     private JmsTemplate jmsTemplate;
-    private Queue queue;
+    private Destination queue;
     private MessageConverterImpl messageConverter;
 
     public void setJmsTemplate(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
 
-    public void setQueue(Queue queue) {
+    public void setQueue(Destination queue) {
         this.queue = queue;
     }
 

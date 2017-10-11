@@ -9,12 +9,11 @@
     <!-- servise -->
 
     <bean id="weatherService" class="weatherBroker.service.impl.WeatherServiceImpl">
-
+        <property name="jmsMessageSender" ref="jmsMessageSender"/>
+        <property name="messageListener" ref="messageListener"/>
     </bean>
 
-    <bean id="factoryRestResult" class="weatherBroker.controller.eventResult.FactoryRestResult">
 
-    </bean>
 
    <!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">

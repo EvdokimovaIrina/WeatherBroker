@@ -10,13 +10,13 @@ import javax.jms.*;
 
 public class MessageListenerImpl implements MessageListener {
     private JmsTemplate jmsTemplate;
-    private Queue queue;
+    private Destination queue;
 
     public void setJmsTemplate(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
 
-    public void setQueue(Queue queue) {
+    public void setQueue(Destination queue) {
         this.queue = queue;
     }
 
