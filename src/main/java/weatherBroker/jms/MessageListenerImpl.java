@@ -30,6 +30,9 @@ public class MessageListenerImpl implements MessageListener {
                 throw new RuntimeException(ex);
             }
         }
+        if (message instanceof QueryWeather) {
+            QueryWeather weather =  (QueryWeather) message;
+        }
     }
 
     public QueryWeather receiveMessage() throws WeatherException {

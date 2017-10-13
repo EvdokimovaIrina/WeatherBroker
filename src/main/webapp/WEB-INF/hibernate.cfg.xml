@@ -13,7 +13,15 @@
     <property name="hbm2ddl.auto">update</property>
 
 
-    <mapping class="weatherBroker.model.Weather"/>
+    <mapping class="weatherBroker.model.QueryWeather"/>
+    <mapping class="weatherBroker.model.Results"/>
+    <mapping class="weatherBroker.model.Item"/>
+    <mapping class="weatherBroker.model.Channel"/>
+    <mapping class="weatherBroker.model.Astronomy"/>
+    <mapping class="weatherBroker.model.Atmosphere"/>
+    <mapping class="weatherBroker.model.Condition"/>
+    <mapping class="weatherBroker.model.Units"/>
+    <mapping class="weatherBroker.model.Wind"/>
 
 
   </session-factory>

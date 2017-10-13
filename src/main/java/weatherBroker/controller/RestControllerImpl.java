@@ -24,7 +24,7 @@ public class RestControllerImpl {
                 "(select woeid from geo.places(1) where text =\"" + city + "\")&format=json";
 
         try {
-            weatherService.generateWeatherDataInTheCity(url);
+            weatherService.generateWeatherDataInTheCity(url,city);
         } catch (WeatherException e) {
             new RestResult(EventType.ERROR, e);
         }
@@ -34,20 +34,13 @@ public class RestControllerImpl {
 
     @RequestMapping(value = "/weather/getcity", method = RequestMethod.GET)
     public RestResult getWeather(@RequestParam(value = "city") String city) {
-        /*String url = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in " +
-                "(select woeid from geo.places(1) where text =\"" + city + "\")&format=json";
-
+        QueryWeather weather=null;
         try {
-            weatherService.generateWeatherDataInTheCity(url);
+            weather = weatherService.getThisWeatherOutOfTheGueue();
+            weatherService.saveObjectToBD(weather);
         } catch (WeatherException e) {
             new RestResult(EventType.ERROR, e);
         }
-*/
-        try {
-            QueryWeather queryWeather = weatherService.getThisWeatherOutOfTheGueue();
-        } catch (WeatherException e) {
-            new RestResult(EventType.ERROR, e);
-        }
-        return new RestResult(EventType.WEATHER, null);
+        return new RestResult(EventType.WEATHER, weather);
     }
 }

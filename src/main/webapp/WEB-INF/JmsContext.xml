@@ -18,9 +18,9 @@
     <!-- JmsTemplate Definition -->
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="jmsConnectionFactory"/>
-        <property name="defaultDestination" ref="destination"/>
+       <property name="defaultDestination" ref="destination"/>
         <property name="messageConverter" ref="myMessageConverter"/>
-        <property name="pubSubDomain" value="true"/>
+        <property name="pubSubDomain" value="false"/>
     </bean>
 
     <bean id="jmsMessageSender" class="weatherBroker.jms.JmsMessageSender">
@@ -45,12 +45,17 @@
         <property name="messageListener" ref="messageListener"/>
     </bean>-->
 
-    <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    <!--<bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="jmsConnectionFactory"/>
         <property name="destination" ref="destination"/>
         <property name="messageListener" ref="messageListener" />
-    </bean>
+    </bean>-->
 
+   <!-- <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+        <property name="destination" ref="destination"/>
+        <property name="messageListener" ref="messageListener" />
+    </bean>-->
 
     <!-- <jms:listener-container container-type="default"
                              connection-factory="connectionFactory"

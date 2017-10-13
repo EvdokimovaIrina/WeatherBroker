@@ -8,9 +8,14 @@
 
     <!-- servise -->
 
+    <bean id="weatherDao" class="weatherBroker.dao.impl.WeatherDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
     <bean id="weatherService" class="weatherBroker.service.impl.WeatherServiceImpl">
         <property name="jmsMessageSender" ref="jmsMessageSender"/>
         <property name="messageListener" ref="messageListener"/>
+        <property name="weatherDao" ref="weatherDao"/>
     </bean>
 
 
