@@ -22,7 +22,7 @@ public class Wind implements Serializable {
     }
 
     @Id
-  //  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(nullable=false)
     public int getId() {
         return id;

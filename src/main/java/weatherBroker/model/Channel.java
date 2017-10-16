@@ -28,7 +28,7 @@ public class Channel implements Serializable {
     }
 
     @Id
- //   @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id", nullable=false)
     public int getId() {
         return id;
