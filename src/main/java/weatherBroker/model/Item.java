@@ -14,6 +14,7 @@ public class Item implements Serializable {
     @JsonIgnore
     private int id;
     private String link;
+
     private Condition condition;
 
 
@@ -41,8 +42,8 @@ public class Item implements Serializable {
         this.link = link;
     }
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="condition_id")
     public Condition getCondition() {
         return condition;
     }

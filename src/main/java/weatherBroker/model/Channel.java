@@ -13,10 +13,15 @@ import javax.persistence.*;
 public class Channel implements Serializable {
     @JsonIgnore
     private int id;
+
     private Units units;
+
     private Wind wind;
+
     private Atmosphere atmosphere;
+
     private Astronomy astronomy;
+
     private Item item;
 
     public Channel() {
@@ -34,7 +39,7 @@ public class Channel implements Serializable {
     }
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @JoinColumn(name="wind_id")
     public Wind getWind() {
         return wind;
     }
@@ -43,8 +48,8 @@ public class Channel implements Serializable {
         this.wind = wind;
     }
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="atmosphere_id")
     public Atmosphere getAtmosphere() {
         return atmosphere;
     }
@@ -53,8 +58,8 @@ public class Channel implements Serializable {
         this.atmosphere = atmosphere;
     }
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="units_id")
     public Units getUnits() {
         return units;
     }
@@ -73,8 +78,8 @@ public class Channel implements Serializable {
         this.astronomy = astronomy;
     }
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="item_id")
     public Item getItem() {
         return item;
     }
