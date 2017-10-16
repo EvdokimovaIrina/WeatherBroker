@@ -8,7 +8,7 @@ import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Table(name = "weather")
+@Table(name = "weathe")
 public class QueryWeather implements Serializable{
     private String city;
     private String count;
@@ -61,7 +61,7 @@ public class QueryWeather implements Serializable{
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="results_id")
+    @JoinColumn(name="results_i")
     public Results getResults() {
         return results;
     }

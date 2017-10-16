@@ -38,7 +38,6 @@ public class WeatherServiceImpl implements WeatherService {
             jsonNode = restTemplate.getForObject(url, JsonNode.class).get("query");
             weather = mapper.readValue(jsonNode.traverse(),QueryWeather.class);
             weather.setCity(city);
-            weather.setId(city+(new SimpleDateFormat("ddMMyyyy").format(weather.getCreated())));
         } catch (Exception e) {
            throw new WeatherException("Ошибка получения данных с погодного ресурса",e);
         }
