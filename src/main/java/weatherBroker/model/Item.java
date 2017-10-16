@@ -16,13 +16,12 @@ public class Item implements Serializable {
     private String link;
     private Condition condition;
 
-    private Channel channel;
 
     public Item() {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+ //   @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable=false)
     public int getId() {
         return id;
@@ -52,12 +51,5 @@ public class Item implements Serializable {
         this.condition = condition;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "item")
-    public Channel getChannel() {
-        return channel;
-    }
 
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
 }

@@ -18,13 +18,12 @@ public class Condition implements Serializable {
     private String temp;
     private String text;
 
-    private Item item;
 
     public Condition() {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+ //   @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable=false)
     public int getId() {
         return id;
@@ -74,13 +73,5 @@ public class Condition implements Serializable {
         this.text = text;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "condition")
 
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
 }

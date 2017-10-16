@@ -23,7 +23,7 @@ public class Atmosphere implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+ //   @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable=false)
     public int getId() {
         return id;

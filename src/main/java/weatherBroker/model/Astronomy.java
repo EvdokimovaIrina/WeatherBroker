@@ -19,7 +19,7 @@ public class Astronomy implements Serializable{
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+   // @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable=false)
     public int getId() {
         return id;

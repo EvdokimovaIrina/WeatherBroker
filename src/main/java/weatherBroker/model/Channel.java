@@ -63,8 +63,8 @@ public class Channel implements Serializable {
         this.units = units;
     }
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="astronomy_id")
     public Astronomy getAstronomy() {
         return astronomy;
     }

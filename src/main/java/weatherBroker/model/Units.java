@@ -22,7 +22,7 @@ public class Units implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  //  @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable=false)
     public int getId() {
         return id;
