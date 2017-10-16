@@ -1,5 +1,6 @@
 package weatherBroker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Table;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Item implements Serializable {
+    @JsonIgnore
     private int id;
     private String link;
     private Condition condition;
@@ -41,7 +43,7 @@ public class Item implements Serializable {
     }
 
     @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "item_id")
+    @JoinColumn
     public Condition getCondition() {
         return condition;
     }

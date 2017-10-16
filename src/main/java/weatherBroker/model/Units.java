@@ -1,5 +1,6 @@
 package weatherBroker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Table;
@@ -10,13 +11,12 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Units implements Serializable {
+    @JsonIgnore
     private int id;
     private String distance;
     private String pressure;
     private String speed;
     private String temperature;
-
-    private Channel channel;
 
     public Units() {
     }
@@ -72,12 +72,4 @@ public class Units implements Serializable {
         this.temperature = temperature;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "units")
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
 }

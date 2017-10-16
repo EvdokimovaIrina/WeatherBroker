@@ -6,6 +6,7 @@ import weatherBroker.controller.eventResult.EventType;
 import weatherBroker.controller.eventResult.RestResult;
 import weatherBroker.exception.WeatherException;
 import weatherBroker.model.QueryWeather;
+import weatherBroker.model.Results;
 import weatherBroker.service.WeatherService;
 
 
@@ -37,7 +38,10 @@ public class RestControllerImpl {
         QueryWeather weather=null;
         try {
             weather = weatherService.getThisWeatherOutOfTheGueue();
-            weatherService.saveObjectToBD(weather);
+             weatherService.saveObjectToBD(weather);
+           /* Results results = weather.getResults();
+            results.setId(1);
+            weatherService.saveObject(results);*/
         } catch (WeatherException e) {
             new RestResult(EventType.ERROR, e);
         }

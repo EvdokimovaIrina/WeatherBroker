@@ -1,5 +1,6 @@
 package weatherBroker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Table;
@@ -8,19 +9,20 @@ import javax.persistence.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Table(name = "Results")
+@Table(name = "results")
 public class Results implements Serializable {
+    @JsonIgnore
     private int id;
+
     private Channel channel;
 
-    private QueryWeather weather;
 
     public Results() {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable=false)
+   // @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable=false)
     public int getId() {
         return id;
     }
@@ -30,8 +32,8 @@ public class Results implements Serializable {
     }
 
 
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "results_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="channel_id")
     public Channel getChannel() {
         return channel;
     }
@@ -40,12 +42,6 @@ public class Results implements Serializable {
         this.channel = channel;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    public QueryWeather getWeather() {
-        return weather;
-    }
 
-    public void setWeather(QueryWeather weather) {
-        this.weather = weather;
-    }
+
 }

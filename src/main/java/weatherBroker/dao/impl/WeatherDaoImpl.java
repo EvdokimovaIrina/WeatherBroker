@@ -36,6 +36,16 @@ public class WeatherDaoImpl implements WeatherDao{
 
     }
 
+    public void saveObgect(Object object) throws WeatherException{
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.saveOrUpdate(object);
+        } catch (Exception e) {
+           throw new WeatherException("Ошибка при записи в БД ", e);
+        }
+
+    }
+
     public WeatherDaoImpl() {
     }
 

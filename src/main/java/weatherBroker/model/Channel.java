@@ -1,5 +1,6 @@
 package weatherBroker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Table;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Channel implements Serializable {
+    @JsonIgnore
     private int id;
     private Units units;
     private Wind wind;
@@ -17,15 +19,12 @@ public class Channel implements Serializable {
     private Astronomy astronomy;
     private Item item;
 
-    private Results results;
-
-
     public Channel() {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(nullable=false)
+ //   @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable=false)
     public int getId() {
         return id;
     }
@@ -34,8 +33,8 @@ public class Channel implements Serializable {
         this.id = id;
     }
 
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "channel_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     public Wind getWind() {
         return wind;
     }
@@ -45,7 +44,7 @@ public class Channel implements Serializable {
     }
 
     @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "channel_id")
+    @JoinColumn
     public Atmosphere getAtmosphere() {
         return atmosphere;
     }
@@ -55,7 +54,7 @@ public class Channel implements Serializable {
     }
 
     @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "channel_id")
+    @JoinColumn
     public Units getUnits() {
         return units;
     }
@@ -65,7 +64,7 @@ public class Channel implements Serializable {
     }
 
     @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "channel_id")
+    @JoinColumn
     public Astronomy getAstronomy() {
         return astronomy;
     }
@@ -75,7 +74,7 @@ public class Channel implements Serializable {
     }
 
     @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "channel_id")
+    @JoinColumn
     public Item getItem() {
         return item;
     }
@@ -84,12 +83,4 @@ public class Channel implements Serializable {
         this.item = item;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "channel")
-    public Results getResults() {
-        return results;
-    }
-
-    public void setResults(Results results) {
-        this.results = results;
-    }
 }

@@ -11,12 +11,12 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Wind implements Serializable {
+    @JsonIgnore
     private int id;
     private String chill;
     private String direction;
     private String speed;
 
-    private Channel channel;
 
     public Wind() {
     }
@@ -62,12 +62,4 @@ public class Wind implements Serializable {
         this.speed = speed;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "wind")
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
 }

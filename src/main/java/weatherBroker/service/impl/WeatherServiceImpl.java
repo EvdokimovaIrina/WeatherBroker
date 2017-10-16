@@ -35,7 +35,6 @@ public class WeatherServiceImpl implements WeatherService {
             jsonNode = restTemplate.getForObject(url, JsonNode.class).get("query");
             weather = mapper.readValue(jsonNode.traverse(),QueryWeather.class);
             weather.setCity(city);
-            weather.getResults().setId(1);
         } catch (Exception e) {
            throw new WeatherException("Ошибка получения данных с погодного ресурса",e);
         }
@@ -67,6 +66,13 @@ public class WeatherServiceImpl implements WeatherService {
     public void saveObjectToBD(QueryWeather weather) throws WeatherException {
         synchronized (this) {
             weatherDao.saveObgectToBD(weather);
+        }
+    }
+
+    @Transactional(propagation= Propagation.REQUIRED, rollbackFor=Exception.class)
+    public void saveObject(Object object) throws WeatherException {
+        synchronized (this) {
+            weatherDao.saveObgect(object);
         }
     }
 

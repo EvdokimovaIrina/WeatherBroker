@@ -58,8 +58,8 @@ public class QueryWeather implements Serializable{
     }
 
 
-    @OneToOne
-    @JoinColumn(name = "city", referencedColumnName = "weather_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="results_id")
     public Results getResults() {
         return results;
     }

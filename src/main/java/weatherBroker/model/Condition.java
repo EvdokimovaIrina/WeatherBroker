@@ -1,5 +1,6 @@
 package weatherBroker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Table;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Condition implements Serializable {
+    @JsonIgnore
     private int id;
     private String code;
     private String date;

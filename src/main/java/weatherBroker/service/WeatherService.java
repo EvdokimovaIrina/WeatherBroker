@@ -8,4 +8,5 @@ public interface WeatherService {
     QueryWeather getThisWeatherOutOfTheGueue() throws WeatherException;
     void saveObjectToBD(QueryWeather weather) throws WeatherException;
     QueryWeather getObjectFromTheBD(String city) throws WeatherException;
+    void saveObject(Object object) throws WeatherException;
 }
