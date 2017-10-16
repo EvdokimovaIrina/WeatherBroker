@@ -6,9 +6,7 @@ import weatherBroker.controller.eventResult.EventType;
 import weatherBroker.controller.eventResult.RestResult;
 import weatherBroker.exception.WeatherException;
 import weatherBroker.model.QueryWeather;
-import weatherBroker.model.Results;
 import weatherBroker.service.WeatherService;
-
 
 
 @RestController("restController")
@@ -25,7 +23,7 @@ public class RestControllerImpl {
                 "(select woeid from geo.places(1) where text =\"" + city + "\")&format=json";
 
         try {
-            weatherService.generateWeatherDataInTheCity(url,city);
+            weatherService.generateWeatherDataInTheCity(url, city);
         } catch (WeatherException e) {
             new RestResult(EventType.ERROR, e);
         }
@@ -33,18 +31,35 @@ public class RestControllerImpl {
         return new RestResult(EventType.WEATHER, null);
     }
 
-    @RequestMapping(value = "/weather/getcity", method = RequestMethod.GET)
-    public RestResult getWeather(@RequestParam(value = "city") String city) {
-        QueryWeather weather=null;
+    @RequestMapping(value = "/weather/getcity", method = RequestMethod.POST)
+    public RestResult addWeatherToBD(@RequestParam(value = "city") String city) {
+        QueryWeather weather = null;
         try {
             weather = weatherService.getThisWeatherOutOfTheGueue();
-             weatherService.saveObjectToBD(weather);
-           /* Results results = weather.getResults();
-            results.setId(1);
-            weatherService.saveObject(results);*/
+            weatherService.saveObjectToBD(weather);
+
         } catch (WeatherException e) {
             new RestResult(EventType.ERROR, e);
         }
         return new RestResult(EventType.WEATHER, weather);
+    }
+
+    @RequestMapping(value = "/weather/getcity/{format}", method = RequestMethod.GET)
+    public RestResult getWeather(@PathVariable(value = "format") String format, @RequestParam(value = "city") String city) {
+        try {
+            switch (format) {
+                case "xml":
+                    return new RestResult(EventType.WEATHER, weatherService.getWeatherXMLfromBD(city));
+
+                case "json":
+                    return new RestResult(EventType.WEATHER, weatherService.getWeatherJSONfromBD(city));
+
+                default:
+                    new RestResult(EventType.ERROR, "не верно указан формат возвращаемого значения");
+            }
+        } catch (WeatherException e) {
+            new RestResult(EventType.ERROR, e);
+        }
+        return new RestResult(EventType.ERROR, "Ошибка данных");
     }
 }

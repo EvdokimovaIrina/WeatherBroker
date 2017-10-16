@@ -1,8 +1,10 @@
 package weatherBroker.dao.impl;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import weatherBroker.dao.WeatherDao;
 import weatherBroker.exception.WeatherException;
 import weatherBroker.model.QueryWeather;
@@ -13,10 +15,12 @@ public class WeatherDaoImpl implements WeatherDao{
     private static Logger logger = Logger.getLogger(WeatherDaoImpl.class.getName());
 
     public QueryWeather getObject(String city) throws WeatherException {
+        QueryWeather weather=null;
         try {
-            QueryWeather weather;
-            Session session = sessionFactory.getCurrentSession();
-            weather = (QueryWeather) session.load(QueryWeather.class, city);
+            Session session = sessionFactory.openSession();
+            Criteria weatherCriteria = session.createCriteria(QueryWeather.class);
+            weatherCriteria.add(Restrictions.eq("city", city));
+            weather = (QueryWeather) weatherCriteria.uniqueResult();
             return weather;
         } catch (Exception e) {
             logger.error("Ошибка при получении данных ", e);

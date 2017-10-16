@@ -1,7 +1,9 @@
 package weatherBroker.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -25,6 +27,7 @@ public class WeatherServiceImpl implements WeatherService {
     public WeatherServiceImpl() {
     }
 
+    //Очередь
     public void generateWeatherDataInTheCity(String url,String city) throws WeatherException {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -54,7 +57,6 @@ public class WeatherServiceImpl implements WeatherService {
 
     }
 
-
     public QueryWeather getThisWeatherOutOfTheGueue() throws WeatherException {
         QueryWeather queryWeather;
         synchronized (this) {
@@ -63,6 +65,8 @@ public class WeatherServiceImpl implements WeatherService {
         return queryWeather;
     }
 
+
+    //БД
     @Transactional(propagation= Propagation.REQUIRED, rollbackFor=Exception.class)
     public void saveObjectToBD(QueryWeather weather) throws WeatherException {
         synchronized (this) {
@@ -77,13 +81,35 @@ public class WeatherServiceImpl implements WeatherService {
         }
     }
 
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public QueryWeather getObjectFromTheBD(String city) throws WeatherException {
         synchronized (this) {
+          return  weatherDao.getObject(city);
         }
 
-        return null;
     }
+
+
+    public String getWeatherXMLfromBD(String city) throws WeatherException {
+        QueryWeather queryWeather = getObjectFromTheBD(city);
+        ObjectMapper objectMapper = new XmlMapper();
+        String xml;
+        try {
+            xml = objectMapper.writeValueAsString(queryWeather);
+        } catch (JsonProcessingException e) {
+            throw new WeatherException("Ошибка формирования данных в xml",e);
+        }
+        return xml;
+    }
+
+
+    public QueryWeather getWeatherJSONfromBD(String city) throws WeatherException {
+        return getObjectFromTheBD(city);
+
+
+    }
+
+
     public JmsMessageSender getJmsMessageSender() {
         return jmsMessageSender;
     }

@@ -10,7 +10,6 @@ import java.util.Date;
 @Entity
 @Table(name = "weather")
 public class QueryWeather implements Serializable{
-    private String id;
     private String city;
     private String count;
     private Date created;
@@ -21,21 +20,6 @@ public class QueryWeather implements Serializable{
     }
 
     @Id
-    @AttributeOverrides({
-            @AttributeOverride(name = "city",
-                    column = @Column(name="city")),
-            @AttributeOverride(name = "created",
-                    column = @Column(name="created"))
-    })
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Basic
     @Column(nullable=false)
     public String getCity() {
         return city;
