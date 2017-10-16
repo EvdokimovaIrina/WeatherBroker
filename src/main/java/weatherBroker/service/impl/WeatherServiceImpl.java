@@ -12,7 +12,7 @@ import weatherBroker.jms.MessageListenerImpl;
 import weatherBroker.model.QueryWeather;
 import weatherBroker.service.WeatherService;
 import javax.jms.JMSException;
-
+import java.text.SimpleDateFormat;
 
 public class WeatherServiceImpl implements WeatherService {
 
@@ -35,6 +35,7 @@ public class WeatherServiceImpl implements WeatherService {
             jsonNode = restTemplate.getForObject(url, JsonNode.class).get("query");
             weather = mapper.readValue(jsonNode.traverse(),QueryWeather.class);
             weather.setCity(city);
+            weather.setId(city+(new SimpleDateFormat("ddMMyyyy").format(weather.getCreated())));
         } catch (Exception e) {
            throw new WeatherException("Ошибка получения данных с погодного ресурса",e);
         }

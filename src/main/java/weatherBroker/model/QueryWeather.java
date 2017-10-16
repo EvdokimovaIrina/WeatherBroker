@@ -4,20 +4,38 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "weather")
 public class QueryWeather implements Serializable{
+    private String id;
     private String city;
     private String count;
-    private String created;
+    private Date created;
     private String lang;
     private Results results;
 
     public QueryWeather() {
     }
+
     @Id
+    @AttributeOverrides({
+            @AttributeOverride(name = "city",
+                    column = @Column(name="city")),
+            @AttributeOverride(name = "created",
+                    column = @Column(name="created"))
+    })
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
     @Column(nullable=false)
     public String getCity() {
         return city;
@@ -39,11 +57,11 @@ public class QueryWeather implements Serializable{
 
     @Basic
     @Column(nullable=false)
-    public String getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
