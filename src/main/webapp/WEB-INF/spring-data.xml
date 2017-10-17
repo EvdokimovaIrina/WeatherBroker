@@ -12,22 +12,9 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="weatherService" class="weatherBroker.service.impl.WeatherServiceImpl">
-        <property name="jmsMessageSender" ref="jmsMessageSender"/>
-        <property name="messageListener" ref="messageListener"/>
+    <bean id="weatherService" class="weatherBroker.service.impl.WeatherServiceDAOImpl">
         <property name="weatherDao" ref="weatherDao"/>
     </bean>
 
-
-
-   <!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
-            </list></property>
-    </bean>
-
-    <bean id="restJsonMarshalView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
-    -->
 
 </beans>

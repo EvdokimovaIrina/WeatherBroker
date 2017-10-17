@@ -38,7 +38,7 @@ public class MessageListenerImpl implements MessageListener {
     public QueryWeather receiveMessage() throws WeatherException {
         QueryWeather queryWeather;
         try {
-            queryWeather = (QueryWeather) this.jmsTemplate.receiveAndConvert();
+            queryWeather = (QueryWeather) jmsTemplate.receiveAndConvert();
         } catch (JmsException e){
             throw new WeatherException("Ошибка получения сообщения",e);
         }

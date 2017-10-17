@@ -5,19 +5,25 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import weatherBroker.dao.WeatherDao;
 import weatherBroker.exception.WeatherException;
 import weatherBroker.model.QueryWeather;
+
+
 
 public class WeatherDaoImpl implements WeatherDao{
 
     private SessionFactory sessionFactory;
     private static Logger logger = Logger.getLogger(WeatherDaoImpl.class.getName());
 
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = {java.lang.Exception.class})
     public QueryWeather getObject(String city) throws WeatherException {
         QueryWeather weather=null;
         try {
-            Session session = sessionFactory.openSession();
+            Session session = sessionFactory.getCurrentSession();
+
             Criteria weatherCriteria = session.createCriteria(QueryWeather.class);
             weatherCriteria.add(Restrictions.eq("city", city));
             weather = (QueryWeather) weatherCriteria.uniqueResult();

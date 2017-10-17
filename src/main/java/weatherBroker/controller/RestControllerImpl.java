@@ -6,7 +6,8 @@ import weatherBroker.controller.eventResult.EventType;
 import weatherBroker.controller.eventResult.RestResult;
 import weatherBroker.exception.WeatherException;
 import weatherBroker.model.QueryWeather;
-import weatherBroker.service.WeatherService;
+import weatherBroker.service.WeatherServiceDAO;
+import weatherBroker.service.WeatherServiceJMS;
 
 
 @RestController("restController")
@@ -14,7 +15,10 @@ import weatherBroker.service.WeatherService;
 public class RestControllerImpl {
 
     @Autowired()
-    private WeatherService weatherService;
+    private WeatherServiceDAO weatherService;
+
+    @Autowired()
+    private WeatherServiceJMS weatherServiceJMS;
 
 
     @RequestMapping(value = "/weather", method = RequestMethod.GET)
@@ -22,29 +26,30 @@ public class RestControllerImpl {
         String url = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in " +
                 "(select woeid from geo.places(1) where text =\"" + city + "\")&format=json";
 
+        QueryWeather weather = null;
         try {
-            weatherService.generateWeatherDataInTheCity(url, city);
+            weatherServiceJMS.generateWeatherDataInTheCity(url, city);
+            weather = addWeatherToBD();
         } catch (WeatherException e) {
             new RestResult(EventType.ERROR, e);
         }
 
-        return new RestResult(EventType.WEATHER, null);
+        return new RestResult(EventType.WEATHER, weather);
     }
 
-    @RequestMapping(value = "/weather/getcity", method = RequestMethod.POST)
-    public RestResult addWeatherToBD(@RequestParam(value = "city") String city) {
+    public QueryWeather addWeatherToBD() {
         QueryWeather weather = null;
         try {
-            weather = weatherService.getThisWeatherOutOfTheGueue();
+            weather = weatherServiceJMS.getThisWeatherOutOfTheGueue();
             weatherService.saveObjectToBD(weather);
 
         } catch (WeatherException e) {
             new RestResult(EventType.ERROR, e);
         }
-        return new RestResult(EventType.WEATHER, weather);
+      return weather;
     }
 
-    @RequestMapping(value = "/weather/getcity/{format}", method = RequestMethod.GET)
+    @RequestMapping(value = "/weather/{format}", method = RequestMethod.GET)
     public RestResult getWeather(@PathVariable(value = "format") String format, @RequestParam(value = "city") String city) {
         try {
             switch (format) {
