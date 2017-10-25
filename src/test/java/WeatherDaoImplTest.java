@@ -19,11 +19,7 @@ public class WeatherDaoImplTest {
 
     @Test
     void testGetObject(){
-        try {
-            weatherDao.getObject("Saratov");
-        } catch (WeatherException e) {
-            e.printStackTrace();
-        }
+
     }
 
 }

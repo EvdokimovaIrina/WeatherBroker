@@ -1,23 +1,15 @@
-import org.hibernate.SessionFactory;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
+
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.bind.annotation.RestController;
+
 import weatherBroker.controller.RestControllerImpl;
 import weatherBroker.controller.eventResult.EventType;
 import weatherBroker.controller.eventResult.RestResult;
-import weatherBroker.dao.WeatherDao;
-import weatherBroker.dao.impl.WeatherDaoImpl;
-import weatherBroker.exception.WeatherException;
+
 import weatherBroker.jms.MessageListenerImpl;
 import weatherBroker.model.QueryWeather;
-import weatherBroker.service.WeatherServiceDAO;
-import weatherBroker.service.WeatherServiceJMS;
+
 import weatherBroker.service.impl.WeatherServiceDAOImpl;
 import weatherBroker.service.impl.WeatherServiceJMSImpl;
 
@@ -27,10 +19,12 @@ import static org.mockito.Mockito.*;
 @WebAppConfiguration
 @ContextConfiguration*/
 public class RestControllerImplTest {
+    String city = "Saratov";
+
 
     @Test
     public void setWeatherTest() throws Exception {
-        String city = "Saratov";
+
         String url = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in " +
                 "(select woeid from geo.places(1) where text =\"" + city + "\")&format=json";
         QueryWeather weather = new QueryWeather();
@@ -62,7 +56,7 @@ public class RestControllerImplTest {
 
     @Test
     public void addWeatherToBDTest() throws Exception {
-        String city = "Saratov";
+
         QueryWeather weather = new QueryWeather();
         weather.setCity(city);
         RestControllerImpl restControllerImpl = new RestControllerImpl();
@@ -80,5 +74,21 @@ public class RestControllerImplTest {
         restControllerImpl.setWeatherServiceJMS(weatherServiceJMS);
 
         Assert.assertEquals("Не прошла проверка addWeatherToBD",weather,restControllerImpl.addWeatherToBD());
+    }
+
+    @Test
+    public void getWeatherXMLTest() throws Exception {
+        QueryWeather weather = new QueryWeather();
+        weather.setCity(city);
+        RestControllerImpl restControllerImpl = new RestControllerImpl();
+
+
+        WeatherServiceDAOImpl weatherServiceDAO = mock(WeatherServiceDAOImpl.class);
+        when(weatherServiceDAO.getWeatherXMLfromBD(city)).thenReturn("Saratov");
+
+        restControllerImpl.setWeatherServiceDAO(weatherServiceDAO);
+
+        RestResult restResult = new RestResult(EventType.WEATHER, city);
+        Assert.assertEquals("Не прошла проверка getWeather для xml",restResult,restControllerImpl.getWeather("xml",city));
     }
 }
