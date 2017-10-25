@@ -7,7 +7,6 @@ public interface WeatherServiceDAO {
 
     void saveObjectToBD(QueryWeather weather) throws WeatherException;
     QueryWeather getObjectFromTheBD(String city) throws WeatherException;
-    void saveObject(Object object) throws WeatherException;
     String getWeatherXMLfromBD(String city) throws WeatherException;
     QueryWeather getWeatherJSONfromBD(String city) throws WeatherException;
 }

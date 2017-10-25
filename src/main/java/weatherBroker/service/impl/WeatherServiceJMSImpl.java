@@ -2,6 +2,7 @@ package weatherBroker.service.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.client.RestTemplate;
 import weatherBroker.exception.WeatherException;
@@ -11,6 +12,7 @@ import weatherBroker.service.WeatherServiceJMS;
 
 
 public class WeatherServiceJMSImpl implements WeatherServiceJMS {
+    private static Logger logger = Logger.getLogger(WeatherServiceJMSImpl.class.getName());
 
     private MessageListenerImpl messageListener;
     private JmsTemplate jmsTemplate;
@@ -32,7 +34,7 @@ public class WeatherServiceJMSImpl implements WeatherServiceJMS {
         sendTheWeatherToTheQueue(weather);
     }
 
-    public void sendTheWeatherToTheQueue(QueryWeather weather) throws WeatherException {
+    private void sendTheWeatherToTheQueue(QueryWeather weather) throws WeatherException {
         synchronized (this) {
             jmsTemplate.convertAndSend(weather);
         }

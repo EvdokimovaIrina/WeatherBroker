@@ -19,6 +19,8 @@ public class QueryWeather implements Serializable{
     public QueryWeather() {
     }
 
+
+
     @Id
     @Column(nullable=false)
     public String getCity() {

@@ -12,7 +12,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="weatherService" class="weatherBroker.service.impl.WeatherServiceDAOImpl">
+    <bean id="weatherServiceDAO" class="weatherBroker.service.impl.WeatherServiceDAOImpl">
         <property name="weatherDao" ref="weatherDao"/>
     </bean>
 
